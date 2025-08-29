@@ -1,6 +1,10 @@
 import pandas as pd
 import numpy as np
+import sys
 from scipy.spatial import cKDTree
+
+# Get iteration number from the command line arguments
+iteration = int(sys.argv[1])
 
 # Step 1: Parse LAMMPS Data File
 def parse_lammps_data(filename):
@@ -47,10 +51,10 @@ def calculate_distances_with_kdtree(df, cutoff_distance):
     return distances, df_type2
 
 # Main Execution
-input_filename = 'combined_output.lammps'
+input_filename = f"combined_output_{iteration}.lammps"
 output_distances_file = 'distances.npy'
 output_data_file = 'data_df.csv'
-cutoff_distance = 200.0  
+cutoff_distance = 120.0  
 
 data_df = parse_lammps_data(input_filename)
 distances, type2_df = calculate_distances_with_kdtree(data_df, cutoff_distance)
